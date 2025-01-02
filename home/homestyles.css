@@ -1,0 +1,146 @@
+.form-control {
+    border-radius: 30px; /* Rounded corners */
+    border: 1px solid #ccc; /* Subtle border */
+    padding: 6px 10px; /* Adjust padding for balance */
+    box-shadow: none; /* Remove default shadow */
+}
+
+.form-control:focus {
+    border-color: #ffffff; /* Highlight border on focus */
+    outline: none; /* Remove focus outline */
+}
+
+.btn:hover i {
+    color: #ff0202; /* Darker color on hover */
+}
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1020; /* Ensure it stays above other content */
+}
+.fav-button {
+    width: 100px;
+    padding: 6px; /* Button padding for consistent size */
+    border-radius: 5px; /* Rounded corners */
+    border: 1px solid white; /* Match button border with Bootstrap's success theme */
+    background-color: white; /* Green background */
+    color: black; /* Button text color */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    transition: background-color 0.3s ease; /* Smooth hover transition */
+}
+.fav-button:hover {
+    background-color: rgb(241, 241, 241);
+    color: black;
+}
+.nav-link{
+    color:white;
+}
+.nav-link:hover{
+    color: #ccc;
+}
+
+.main{
+    display: flex;
+    margin-top: 0px;
+    background: white;
+    height: 80vh;
+}
+.main .left{
+    width: 25%;
+    height: 80vh;
+    overflow: hidden;
+    overflow-y: scroll;
+    background: white;
+    padding: 20px 6px 5px 10px;
+    position: fixed;
+}
+.main .left::-webkit-scrollbar{
+    width: 7px;
+}
+.main .left::-webkit-scrollbar-thumb{
+    border-radius: 20px;
+    background: #f5fbfd;
+}
+.main .left:hover::-webkit-scrollbar-thumb{
+    background: #cccccc;
+}
+
+.main .right {
+    width: 75%;
+    height: 100vh; /* Reduced from 100vh to match .main height */
+    margin-left: 25%;
+    overflow: hidden;
+    overflow-y: scroll;
+    background: white;
+    padding: 20px 6px 80px 10px; /* Increased bottom padding */
+    position: fixed;
+}
+.main .right::-webkit-scrollbar{
+    width: 7px;
+}
+.main .right::-webkit-scrollbar-thumb{
+    border-radius: 20px;
+    background: #f5fbfd;
+}
+.main .right:hover::-webkit-scrollbar-thumb{
+    background: #cccccc;
+}
+
+.main .right .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem; /* Add this line to add a gap between cards */
+}
+  
+.card {
+    width: 30rem;
+}
+
+
+
+.search-container {
+    position: relative;
+    height: 38px;
+}
+
+.search-form {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%); /* Ensures vertical alignment */
+    height: 30px; /* Consistent height */
+    width: 0;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out;
+    display: none;
+    border: none; /* Remove default border */
+    border-radius: 4px; /* Optional: rounds the corners */
+    box-shadow: none; /* Remove focus shadow */
+    outline: none; /* Remove focus outline */
+}
+
+.search-form.active {
+    width: 200px; /* Expanded width */
+    display: block;
+    border: 1px solid #ccc; /* Add border when active */
+    border-radius: 4px; /* Keeps rounded corners */
+}
+
+.search-form input {
+    width: 100%;
+    height: 100%;
+    border: none; /* Remove input border */
+    box-shadow: none; /* Remove input shadow */
+    outline: none; /* Remove focus outline */
+    padding: 0 10px; /* Add padding for better usability */
+    border-radius: 4px; /* Matches form's border-radius */
+}
+
+.search-form input:focus {
+    outline: none; /* Ensures no focus outline */
+    box-shadow: none; /* Removes focus shadow */
+}
+
+.search-icon {
+    cursor: pointer;
+}
