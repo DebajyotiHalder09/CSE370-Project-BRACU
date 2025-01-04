@@ -86,6 +86,7 @@
     width: 30rem;
 }
 
+
 .search-container {
     position: relative;
     height: 38px;
@@ -95,16 +96,16 @@
     position: absolute;
     right: 0;
     top: 50%;
-    transform: translateY(-50%);
-    height: 30px;
+    transform: translateY(-50%); 
+    height: 30px; 
     width: 0;
     overflow: hidden;
     transition: width 0.3s ease-in-out;
     display: none;
     border: none; 
-    border-radius: 4px; 
-    box-shadow: none; 
-    outline: none;
+    border-radius: 4px;
+    box-shadow: none;
+    outline: none; 
 }
 
 .search-form.active {
@@ -133,7 +134,6 @@
     cursor: pointer;
 }
 
-
 .main {
     padding: 20px;
     min-height: 100vh;
@@ -159,4 +159,15 @@
 }
 .search-form.active {
     transform: scaleX(1);
+}
+
+.search-form {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.search-form.active {
+    display: flex;
+    opacity: 1;
 }

@@ -24,6 +24,7 @@ function checkIfSeller($conn, $userId) {
 
 if (isset($_GET['search']) && trim($_GET['search']) !== '') {
     $search = trim($_GET['search']);
+    
     header("Location: /lunch/home/home.php?search=" . urlencode($search));
     exit();
 }
@@ -60,7 +61,7 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                 <li class="nav-item mx-2">
                     <div class="search-container nav-link position-relative">
                     <i class="fa-solid fa-magnifying-glass search-icon fa-lg" onclick="toggleSearch()" style="color: rgb(37, 40, 43); position: relative; z-index: 2;"></i>     
-                    <form class="search-form d-flex position-absolute" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET" role="search" style="right: 100%; top: 50%; transform: translateY(-50%);">
+                    <form class="search-form d-flex position-absolute" action="/lunch/home/home.php" method="GET" role="search" style="right: 100%; top: 50%; transform: translateY(-50%);">
                         <input 
                         class="form-control rounded-pill ps-2 pe-2" 
                         type="search" 

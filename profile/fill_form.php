@@ -7,7 +7,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Check if user is logged in
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
     die("Please log in to continue.");
 }
@@ -15,19 +14,15 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) {
 $userid = $_SESSION['user_id'];
 $username = $_SESSION['username'];
 
-// Process form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Validate and sanitize inputs
     $item_name = trim($conn->real_escape_string($_POST['item_name']));
     $price = filter_var($_POST['price'], FILTER_VALIDATE_INT);
     $category = trim($conn->real_escape_string($_POST['category']));
     
-    // Validate price
     if ($price === false || $price < 0) {
         die("Invalid price value");
     }
     
-    // Get seller ID
     $seller_query = "SELECT seller_id FROM seller WHERE seller_userid = ?";
     $stmt = $conn->prepare($seller_query);
     $stmt->bind_param("i", $userid);
@@ -38,11 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $seller_row = $seller_result->fetch_assoc();
         $seller_id = $seller_row['seller_id'];
         
-        // Begin transaction
         $conn->begin_transaction();
         
         try {
-            // Insert item
             $item_query = "INSERT INTO item (seller_id, item_name, item_price) VALUES (?, ?, ?)";
             $stmt = $conn->prepare($item_query);
             $stmt->bind_param("isi", $seller_id, $item_name, $price);
@@ -53,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             $item_id = $conn->insert_id;
             
-            // Check/Insert category
             $cat_query = "SELECT cat_id FROM item_catagory WHERE cat_name = ?";
             $stmt = $conn->prepare($cat_query);
             $stmt->bind_param("s", $category);
@@ -75,7 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $cat_id = $conn->insert_id;
             }
             
-            // Insert into category store
             $store_query = "INSERT INTO catagory_store (seller_id, cat_id, item_id) VALUES (?, ?, ?)";
             $stmt = $conn->prepare($store_query);
             $stmt->bind_param("iii", $seller_id, $cat_id, $item_id);
@@ -84,16 +75,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 throw new Exception("Error inserting into category store: " . $stmt->error);
             }
             
-            // Commit transaction
             $conn->commit();
             
-            // Redirect back to profile page
             define('BASE_URL', '/lunch/');
             header("Location:" . BASE_URL . "profile/profile.php");
             exit();
             
         } catch (Exception $e) {
-            // Rollback transaction on error
             $conn->rollback();
             die($e->getMessage());
         }

@@ -23,9 +23,11 @@ function checkIfSeller($conn, $userId) {
 
 if (isset($_GET['search']) && trim($_GET['search']) !== '') {
     $search = trim($_GET['search']);
+    
     header("Location: /lunch/home/home.php?search=" . urlencode($search));
     exit();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -103,25 +105,25 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
             <div class="collapse navbar-collapse justify-content-end align -center"
             id="main-nav">
                 <ul class="navbar-nav">
-                <li class="nav-item mx-2">
-                    <div class="search-container nav-link position-relative">
-                    <i class="fa-solid fa-magnifying-glass search-icon fa-lg" onclick="toggleSearch()" style="color: rgb(37, 40, 43); position: relative; z-index: 2;"></i>     
-                    <form class="search-form d-flex position-absolute" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET" role="search" style="right: 100%; top: 50%; transform: translateY(-50%);">
-                        <input 
-                        class="form-control rounded-pill ps-2 pe-2" 
-                        type="search" 
-                        name="search"
-                        aria-label="Search">
-                        <button 
-                        class="btn position-absolute top-50 translate-middle-y" 
-                        type="submit" 
-                        style="right: 10px; background: none; border: none;"
-                        name="submit">
-                        <i class="fa-solid fa-arrow-right fa-lg" style="color: rgb(37, 40, 43);"></i>
-                        </button>
-                    </form>
-                    </div>
-                </li>
+                    <li class="nav-item mx-2">
+                        <div class="search-container nav-link position-relative">
+                            <i class="fa-solid fa-magnifying-glass search-icon fa-lg" onclick="toggleSearch()" style="color: rgb(37, 40, 43); position: relative; z-index: 2;"></i>     
+                            <form class="search-form d-flex position-absolute" action="/lunch/home/home.php" method="GET" role="search" style="right: 100%; top: 50%; transform: translateY(-50%);">
+                                <input 
+                                class="form-control rounded-pill ps-2 pe-2" 
+                                type="search" 
+                                name="search"
+                                aria-label="Search">
+                                <button 
+                                class="btn position-absolute top-50 translate-middle-y" 
+                                type="submit" 
+                                style="right: 10px; background: none; border: none;"
+                                name="submit">
+                                <i class="fa-solid fa-arrow-right fa-lg" style="color: rgb(37, 40, 43);"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </li>
                 <li class="nav-item mx-2">
                     <a class="nav-link" href="/lunch/profile/profile.php">
                     <i class="fa-solid fa-user fa-lg" style="color:rgb(37, 40, 43);"></i>
@@ -376,7 +378,28 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
             <?php endif; ?>
         </div>
     </div>
+    <script>
+            function toggleSearch() {
+                const searchForm = document.querySelector('.search-form');
+                searchForm.classList.toggle('active');
+                
+                if (searchForm.classList.contains('active')) {
+                    
+                    setTimeout(() => {
+                        searchForm.querySelector('input').focus();
+                    }, 300);
+                }
+            }
 
+            document.addEventListener('click', function(event) {
+                const searchContainer = document.querySelector('.search-container');
+                const searchForm = document.querySelector('.search-form');
+                
+                if (!searchContainer.contains(event.target) && searchForm.classList.contains('active')) {
+                    searchForm.classList.remove('active');
+                }
+            });
+    s</script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('sellerModal');

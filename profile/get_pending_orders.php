@@ -26,7 +26,6 @@ if (isset($_SESSION['user_id'])) {
         echo '<h3>Pending Orders</h3>';
         echo '<h2 class="text-danger">' . number_format($row['pending_count']) . '</h2>';
         
-        // If there are pending orders, you might want to add a notification sound
         if ($row['pending_count'] > 0) {
             echo '<script>
                     // Optional: Play a notification sound

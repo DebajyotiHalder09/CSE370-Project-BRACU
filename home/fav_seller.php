@@ -2,7 +2,6 @@
 session_start();
 $conn = new mysqli('localhost', 'root', '', 'lunch');
 
-// Check the connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -15,7 +14,6 @@ if (isset($_SESSION['user_id'])) {
     }
     $seller_id = $_POST['seller_id'];
 
-    // First, check if the user is trying to follow themselves
     $self_check_query = "SELECT s.seller_id 
                         FROM seller s 
                         WHERE s.seller_userid = ? AND s.seller_id = ?";
@@ -29,7 +27,6 @@ if (isset($_SESSION['user_id'])) {
         exit;
     }
 
-    // If not following self, proceed with regular follow process
     $check_query = "SELECT ff.*, u.name as seller_name 
                    FROM fav_follower ff
                    JOIN seller s ON ff.seller_id = s.seller_id
@@ -45,7 +42,6 @@ if (isset($_SESSION['user_id'])) {
         $row = $check_result->fetch_assoc();
         echo "You are already following " . htmlspecialchars($row['seller_name']) . "!";
     } else {
-        // Get seller name before insertion
         $seller_query = "SELECT u.name as seller_name 
                         FROM seller s 
                         JOIN user u ON s.seller_userid = u.id 
@@ -58,13 +54,11 @@ if (isset($_SESSION['user_id'])) {
         if ($seller_result->num_rows > 0) {
             $seller_row = $seller_result->fetch_assoc();
             
-            // Insert into fav_follower table
             $insert_query = "INSERT INTO fav_follower (user_id, seller_id) VALUES (?, ?)";
             $insert_stmt = $conn->prepare($insert_query);
             $insert_stmt->bind_param("ii", $user_id, $seller_id);
 
             if ($insert_stmt->execute()) {
-                //echo "Successfully followed " . htmlspecialchars($seller_row['seller_name']);
                 header("Location: /lunch/home/home.php");
                 exit();
             } else {
