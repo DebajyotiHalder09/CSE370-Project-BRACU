@@ -9,7 +9,7 @@ if ($conn->connect_error) {
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     $pending_orders_query = "
-        SELECT COUNT(oi.order_item_id) as pending_count
+        SELECT SUM(oi.quantity) as pending_count
         FROM order_item oi
         JOIN item i ON oi.item_id = i.item_id
         JOIN seller s ON i.seller_id = s.seller_id

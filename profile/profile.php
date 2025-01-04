@@ -345,7 +345,7 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                 }
 
                 $orders_query = "
-                    SELECT oi.order_item_id, i.item_name 
+                    SELECT oi.order_item_id, i.item_name, oi.quantity 
                     FROM order_item oi 
                     INNER JOIN item i ON oi.item_id = i.item_id 
                     INNER JOIN seller s ON i.seller_id = s.seller_id 
@@ -363,7 +363,10 @@ if (isset($_GET['search']) && trim($_GET['search']) !== '') {
                         <div class="list-group">
                             <?php while ($order = $order_result->fetch_assoc()): ?>
                                 <div class="list-group-item d-flex justify-content-between align-items-center">
-                                    <h5 class="mb-0"><?php echo htmlspecialchars($order['item_name']); ?></h5>
+                                    <h5 class="mb-0">
+                                        <?php echo htmlspecialchars($order['item_name']); ?>
+                                        <span class="badge bg-secondary ms-2">Qty: <?php echo $order['quantity']; ?></span>
+                                    </h5>
                                     <form method="POST" class="d-inline">
                                         <input type="hidden" name="order_item_id" value="<?php echo $order['order_item_id']; ?>">
                                         <button type="submit" name="complete_order" class="btn btn-primary btn-sm">Complete Order</button>
